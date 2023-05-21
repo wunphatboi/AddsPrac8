@@ -75,8 +75,32 @@ void Heap<T>::insert(T value) {
 
 template <typename T>
 void Heap<T>::remove(T value) {
-  // TO BE IMPLEMENTED
+    auto it = std::find(values.begin(), values.end(), value); // Find the index of the value to be removed
+
+    if (it == values.end()) { // If the value is not found, exit the function
+        return;
+    }
+
+    int index = it - values.begin(); // Get the index of the value
+
+    std::swap(values[index], values[values.size() - 1]); // Swap the value with the last element
+    values.pop_back(); // Remove the last element from the heap
+
+    // Check if the swapped value violates the heap property
+    if (index < values.size()) {
+        if (index == 0 || values[index] > values[(index - 1) / 2]) { // If the value is larger than its parent
+            // Perform a downward heapify operation
+            heapify(index);
+        } else {
+            // If the value is smaller than its parent, perform an upward heapify operation
+            while (index > 0 && values[index] < values[(index - 1) / 2]) {
+                std::swap(values[index], values[(index - 1) / 2]);
+                index = (index - 1) / 2;
+            }
+        }
+    }
 }
+
 
 /*******************************/
 // find the smallest value in the heap
