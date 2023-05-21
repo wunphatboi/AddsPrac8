@@ -55,12 +55,11 @@ Heap<T>::Heap(std::vector<T> start_values) {
 
 template <typename T>
 void Heap<T>::insert(T value) {
-   values.push_back(value); // Add the new value at the end of the vector
-    // Heapify the vector to maintain the heap property
+   values.push_back(value); 
     int index = values.size() - 1;
     while (index > 0) {
         int parentIndex = (index - 1) / 2;
-        if (values[index] < values[parentIndex]) { // Adjust this condition for max heap
+        if (values[index] < values[parentIndex]) { 
             std::swap(values[index], values[parentIndex]);
             index = parentIndex;
         } else {
@@ -75,24 +74,17 @@ void Heap<T>::insert(T value) {
 
 template <typename T>
 void Heap<T>::remove(T value) {
-    auto it = std::find(values.begin(), values.end(), value); // Find the index of the value to be removed
-
-    if (it == values.end()) { // If the value is not found, exit the function
+    auto it = std::find(values.begin(), values.end(), value); 
+    if (it == values.end()) { 
         return;
     }
-
-    int index = it - values.begin(); // Get the index of the value
-
-    std::swap(values[index], values[values.size() - 1]); // Swap the value with the last element
-    values.pop_back(); // Remove the last element from the heap
-
-    // Check if the swapped value violates the heap property
+    int index = it - values.begin(); 
+    std::swap(values[index], values[values.size() - 1]);
+    values.pop_back(); 
     if (index < values.size()) {
-        if (index == 0 || values[index] > values[(index - 1) / 2]) { // If the value is larger than its parent
-            // Perform a downward heapify operation
+        if (index == 0 || values[index] > values[(index - 1) / 2]) {
             heapify(index);
         } else {
-            // If the value is smaller than its parent, perform an upward heapify operation
             while (index > 0 && values[index] < values[(index - 1) / 2]) {
                 std::swap(values[index], values[(index - 1) / 2]);
                 index = (index - 1) / 2;
@@ -111,7 +103,7 @@ T Heap<T>::getMin() {
       if (values.empty()) {
         throw std::out_of_range("Heap is empty");
     }
-    return values[0]; // Return the value at the root (smallest value in a min heap)
+    return values[0];
 }
 
 /*******************************/
