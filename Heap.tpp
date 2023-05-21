@@ -108,7 +108,10 @@ void Heap<T>::remove(T value) {
 
 template <typename T>
 T Heap<T>::getMin() {
-  // TO BE IMPLEMENTED
+      if (values.empty()) {
+        throw std::out_of_range("Heap is empty");
+    }
+    return values[0]; // Return the value at the root (smallest value in a min heap)
 }
 
 /*******************************/
